@@ -1,15 +1,16 @@
 import {Space, Table, Pagination} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {useEffect, useState} from "react";
-import {getUserListApi} from "@/api/user.ts";
+import {getUserListApi} from "@/api/user";
 
 interface DataType {
     key: string;
     name: string;
-    id:string,
+    id: string,
     openId: string;
     align?: string;
 }
+
 
 const columns: ColumnsType<DataType> = [
     {
@@ -86,7 +87,7 @@ export default function User() {
     }
 
     useEffect(() => {
-        getUserListApi(pager).then(res => {
+        getUserListApi(pager).then((res: any) => {
             setTotal(res.data.count)
             setUserList(res.data.rows)
         })

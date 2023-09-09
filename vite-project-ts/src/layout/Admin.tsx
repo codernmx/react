@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Breadcrumb, Layout, theme} from 'antd';
 import {Outlet} from "react-router-dom";
-import MianMenu from "@/layout/MianMenu.tsx";
+import MianMenu from "@/layout/MianMenu";
 
 
 const {Header, Content, Footer, Sider} = Layout;

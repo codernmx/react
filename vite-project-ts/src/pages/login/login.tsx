@@ -4,6 +4,7 @@ import styles from './login.module.scss';
 import {useNavigate} from "react-router-dom";
 import {loginApi} from "@/api/user";
 
+
 const Login: React.FC = () => {
     const router = useNavigate();
     const [name, setName] = React.useState<string>('');
@@ -11,7 +12,7 @@ const Login: React.FC = () => {
     const onFinish = (values: any) => {
         console.log('Success:', values);
 
-        loginApi({name, password}).then(res => {
+        loginApi({name, password}).then((res:any) => {
             if (res.code === 200) {
                 message.success('登陆成功');
                 localStorage.setItem('token', res.data.token)

@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import App from './App'
 
-import 'reset-css'
+import 'reset-css' //重置样式
 
 import '@/assets/styles/global.scss'
 import {BrowserRouter} from "react-router-dom";
