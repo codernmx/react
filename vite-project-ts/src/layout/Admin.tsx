@@ -26,9 +26,6 @@ const App: React.FC = () => {
                                     {
                                         title: '首页',
                                     },
-                                    {
-                                        title: <a href="">系统设置</a>,
-                                    },
                                 ]}
                     />
                     <div style={{padding: 24, minHeight: '98%', background: colorBgContainer}}>

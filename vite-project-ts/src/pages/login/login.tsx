@@ -2,13 +2,23 @@ import React from 'react';
 import {Button, Form, message, Input} from 'antd';
 import styles from './login.module.scss';
 import {useNavigate} from "react-router-dom";
+import {loginApi} from "@/api/user";
 
 const Login: React.FC = () => {
     const router = useNavigate();
+    const [name, setName] = React.useState<string>('');
+    const [password, setPassword] = React.useState<string>('');
     const onFinish = (values: any) => {
         console.log('Success:', values);
-        message.success('登陆成功');
-        router('/')
+
+        loginApi({name, password}).then(res => {
+            if (res.code === 200) {
+                message.success('登陆成功');
+                localStorage.setItem('token', res.data.token)
+                router('/')
+            }
+        })
+
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -20,6 +30,14 @@ const Login: React.FC = () => {
         username?: string;
         password?: string;
     };
+
+    const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value)
+    }
+
+    const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value)
+    }
 
 
     return (
@@ -40,7 +58,7 @@ const Login: React.FC = () => {
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input placeholder="请输入账号"/>
+                    <Input placeholder="请输入账号" onChange={changeName}/>
                 </Form.Item>
 
                 <Form.Item<FieldType>
@@ -48,7 +66,7 @@ const Login: React.FC = () => {
                     name="password"
                     rules={[{required: true, message: 'Please input your password!'}]}
                 >
-                    <Input.Password placeholder="请输入密码"/>
+                    <Input.Password placeholder="请输入密码" onChange={changePassword}/>
                 </Form.Item>
                 <Form.Item>
                     <Button style={{width: '100%'}} type="primary" htmlType="submit">

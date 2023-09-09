@@ -11,4 +11,7 @@ export default defineConfig({
     },
     // extensions: ['.js', '.mjs']
   },
+  server: {
+    hmr:true,
+  }
 })

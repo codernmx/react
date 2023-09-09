@@ -8,7 +8,8 @@ import './App.css'
 
 import {useRoutes} from "react-router-dom";
 import router from "@/router";
-
+import zhCN from 'antd/locale/zh_CN';
+import {ConfigProvider} from 'antd';
 
 function App() {
     const outlet = useRoutes(router)
@@ -25,7 +26,12 @@ function App() {
                   >
                     <source src="https://www.aliboxx.com/resources/video/home/way.mp4" type="video/mp4"></source>
                   </video> */}
-            {outlet}
+
+
+            <ConfigProvider locale={zhCN}>
+                {outlet}
+            </ConfigProvider>
+
         </>
     )
 }
