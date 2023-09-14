@@ -1,23 +1,22 @@
 import React from 'react';
-import {Button, Form, message, Input} from 'antd';
+import { Button, Form, message, Input } from 'antd';
 import styles from './login.module.scss';
-import {useNavigate} from "react-router-dom";
-import {loginApi} from "@/api/user";
+import { useNavigate } from "react-router-dom";
+import { loginApi } from "@/api/user";
 
 
 const Login: React.FC = () => {
     const router = useNavigate();
-    const [name, setName] = React.useState<string>('');
-    const [password, setPassword] = React.useState<string>('');
     const onFinish = (values: any) => {
         console.log('Success:', values);
-
-        loginApi({name, password}).then((res:any) => {
+        loginApi(values).then((res: any) => {
             if (res.code === 200) {
                 message.success('登陆成功');
                 localStorage.setItem('token', res.data.token)
                 router('/')
             }
+        }).catch(err=>{
+            console.log(err);
         })
 
     };
@@ -28,18 +27,9 @@ const Login: React.FC = () => {
     };
 
     type FieldType = {
-        username?: string;
+        name?: string;
         password?: string;
     };
-
-    const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value)
-    }
-
-    const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value)
-    }
-
 
     return (
         <div className={styles.box}>
@@ -47,8 +37,8 @@ const Login: React.FC = () => {
             <Form
                 name="basic"
                 className={styles.formBox}
-                style={{width: '500px'}}
-                initialValues={{remember: true}}
+                style={{ width: '500px' }}
+                initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -56,21 +46,21 @@ const Login: React.FC = () => {
 
                 <Form.Item<FieldType>
                     label=""
-                    name="username"
-                    rules={[{required: true, message: 'Please input your username!'}]}
+                    name="name"
+                    rules={[{ required: true, message: 'Please input your name!' }]}
                 >
-                    <Input placeholder="请输入账号" onChange={changeName}/>
+                    <Input placeholder="请输入账号" />
                 </Form.Item>
 
                 <Form.Item<FieldType>
                     label=""
                     name="password"
-                    rules={[{required: true, message: 'Please input your password!'}]}
+                    rules={[{ required: true, message: 'Please input your password!' }]}
                 >
-                    <Input.Password placeholder="请输入密码" onChange={changePassword}/>
+                    <Input.Password placeholder="请输入密码" />
                 </Form.Item>
                 <Form.Item>
-                    <Button style={{width: '100%'}} type="primary" htmlType="submit">
+                    <Button style={{ width: '100%' }} type="primary" htmlType="submit">
                         登录
                     </Button>
                 </Form.Item>

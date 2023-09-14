@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(
             return response.data;
         } else {
             message.error(response.data.msg);
-            return Promise.reject(response);
+            return Promise.reject(response.data);
         }
     },
     (error: AxiosError) => {
